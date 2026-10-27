@@ -1,0 +1,215 @@
+:root{
+  --cover:#7A2318; --cover-dk:#561409; --cover-lt:#92301F;
+  --paper:#EDE3CC; --paper-2:#E3D6B8; --paper-3:#F4ECDA;
+  --ink:#2A1F1A; --ink-2:#5E4E43; --ink-3:#8C7A6B;
+  --zhu:#B23A2A; --zhu-soft:rgba(178,58,42,.14);
+  --gold:#B08A45; --dai:#2F4858; --dai-soft:#DCE3E6;
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --brush:"DNZ Brush","Ma Shan Zheng","STXingkai","KaiTi","Kaiti SC",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--serif);color:var(--ink);line-height:1.85;font-size:16px;
+  background:var(--cover-dk);
+  background-image:
+    repeating-linear-gradient(45deg,rgba(0,0,0,.05) 0 2px,transparent 2px 6px),
+    repeating-linear-gradient(-45deg,rgba(255,255,255,.025) 0 2px,transparent 2px 6px);
+  min-height:100vh;
+}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#app{max-width:540px;margin:0 auto;min-height:100vh;position:relative}
+
+/* ---------- 通用按钮 ---------- */
+.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:.4em;
+  min-height:50px;padding:0 28px;border-radius:2px;font-size:17px;letter-spacing:.12em;transition:transform .12s,background .2s}
+.btn:active{transform:scale(.98)}
+.btn-zhu{background:var(--zhu);color:#FBF3E4;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 2px 0 var(--cover-dk)}
+.btn-zhu:hover{background:#C2432F}
+.btn-paper{background:var(--paper);color:var(--cover);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.btn-line{color:var(--ink-2);text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--ink-3);min-height:44px;padding:0 8px;letter-spacing:.05em;font-size:15px}
+.btn-line.light{color:#F1DFC4;text-decoration-color:rgba(241,223,196,.5)}
+
+/* ---------- 封面 ---------- */
+.cover{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;position:relative;
+  background:var(--cover);
+  background-image:
+    radial-gradient(ellipse at 70% 20%,rgba(255,200,150,.10),transparent 60%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.03) 0 1px,transparent 1px 4px);
+  padding:28px 24px 24px 64px;color:#F4E6CF;overflow:hidden}
+.cover::before{ /* 线装书的装订边 */
+  content:"";position:absolute;left:0;top:0;bottom:0;width:40px;background:var(--cover-dk);
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.08)}
+.cover .stitch{position:absolute;left:0;width:52px;height:2px;background:#E9D9B9;opacity:.8}
+.cover .stitch::after{content:"";position:absolute;left:26px;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--cover-dk);box-shadow:0 0 0 1.5px #E9D9B9}
+.cover-top{display:flex;gap:22px;align-items:flex-start;flex:1}
+.tiqian{ /* 题签 */
+  writing-mode:vertical-rl;background:var(--paper);color:var(--ink);
+  padding:22px 14px;border:1px solid #C9B78F;box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px var(--zhu),0 3px 10px rgba(0,0,0,.3);
+  font-family:var(--brush);font-size:clamp(34px,10vw,48px);line-height:1.15;letter-spacing:.06em;
+  display:flex;gap:10px;flex-shrink:0;animation:rise .9s ease-out both}
+.tiqian small{font-size:.5em;color:var(--zhu);letter-spacing:.2em;align-self:flex-end;font-family:var(--serif);font-weight:600}
+.cover-side{padding-top:6px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.cover-side .lead{font-size:18px;line-height:1.7;color:#F8EBD3}
+.cover-side .facts{list-style:none;font-size:14px;color:#E3C9A6;line-height:2}
+.cover-side .facts li::before{content:"";display:inline-block;width:6px;height:6px;background:var(--gold);transform:rotate(45deg);margin-right:10px;vertical-align:2px}
+.cover-bottom{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding-top:28px}
+.cover-bottom .btn-paper{font-size:19px;min-height:56px}
+.cover .fine{font-size:12px;line-height:1.7;color:rgba(241,223,196,.62);margin-top:14px}
+
+/* ---------- 纸页 ---------- */
+.page{min-height:100vh;min-height:100svh;background:var(--paper);
+  background-image:radial-gradient(ellipse at 50% 0%,var(--paper-3),transparent 70%),
+    repeating-linear-gradient(0deg,rgba(120,90,50,.025) 0 1px,transparent 1px 3px);
+  padding:18px 16px 32px;display:flex;flex-direction:column}
+.frame{ /* 古籍版框：外粗内细 */
+  border:3px solid var(--zhu);outline:1px solid var(--zhu);outline-offset:-8px;
+  padding:30px 22px 26px;position:relative;flex:1;display:flex;flex-direction:column}
+.frame.loose{flex:0 0 auto}
+
+.prologue p{font-size:17.5px;margin-bottom:1.1em;color:var(--ink)}
+.prologue p:first-child{font-family:var(--brush);font-size:30px;line-height:1.4;color:var(--cover)}
+.prologue .tip{margin-top:auto;padding:14px 16px;background:var(--zhu-soft);font-size:14.5px;line-height:1.75;color:var(--ink-2);border-left:3px solid var(--zhu)}
+.page .actions{display:flex;flex-direction:column;align-items:stretch;gap:6px;margin-top:22px}
+
+
+/* 答题 */
+.qhead{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--ink-2);padding:0 4px 8px;letter-spacing:.06em}
+.qhead b{color:var(--zhu);font-weight:600}
+.bar{height:3px;background:var(--paper-2);margin:0 4px 16px;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--zhu);transition:width .35s ease}
+.qno{font-family:var(--brush);font-size:24px;color:var(--zhu);line-height:1}
+.qscene{font-size:17.5px;line-height:1.85;margin:14px 0 10px;color:var(--ink)}
+.qask{font-size:18px;font-weight:700;color:var(--cover);margin-bottom:18px;letter-spacing:.04em}
+.qgap{height:8px}
+.chban{text-align:center;padding:2px 0 18px;margin-bottom:18px;border-bottom:1px dashed #CDBB95;animation:rise .5s ease-out both}
+.chban .chno{font-size:13px;letter-spacing:.4em;color:var(--zhu);font-weight:600}
+.chban .chti{font-family:var(--brush);font-size:40px;line-height:1.3;letter-spacing:.15em;color:var(--ink)}
+.chban .chin{font-size:14.5px;color:var(--ink-2);margin-top:2px}
+.opts{list-style:none;display:flex;flex-direction:column;gap:10px}
+.opt{width:100%;display:flex;gap:14px;align-items:flex-start;text-align:left;padding:14px 16px;
+  background:var(--paper-3);border:1px solid #D2C29E;border-radius:2px;font-size:16px;line-height:1.7;transition:background .15s,border-color .15s}
+.opt b{flex-shrink:0;width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--zhu);color:var(--zhu);
+  font-weight:600;font-size:14px;margin-top:1px;transition:background .15s,color .15s}
+.opt:hover{border-color:var(--zhu)}
+.opt.on{background:#F7E2D5;border-color:var(--zhu)}
+.opt.on b{background:var(--zhu);color:#FFF4E8}
+.qfoot{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+
+/* 镜外：醒来以后的现实页面 */
+.page.mirror{background:#EEF1F1;background-image:none;font-family:var(--sans)}
+.page.mirror .frame{border:1px solid #B9C6CC;outline:none;border-radius:10px;background:#fff}
+.page.mirror .qno{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.1em;color:var(--dai)}
+.page.mirror .qhead b{color:var(--dai)}
+.page.mirror .bar i{background:var(--dai)}
+.page.mirror .opt{background:#F6F8F8;border-color:#D3DCDF;border-radius:8px;font-family:var(--sans)}
+.page.mirror .opt b{border-color:var(--dai);color:var(--dai);border-radius:50%}
+.page.mirror .opt.on{background:var(--dai-soft);border-color:var(--dai)}
+.page.mirror .opt.on b{background:var(--dai);color:#fff}
+.page.mirror .btn-zhu{background:var(--dai);box-shadow:none;border-radius:8px}
+.page.mirror .qask{color:var(--dai)}
+.page.mirror .chban{border-bottom-color:#C9D3D7}
+.page.mirror .chban .chno{color:var(--dai)}
+.page.mirror .chban .chti{font-family:var(--sans);font-weight:300;font-size:30px;color:var(--dai);letter-spacing:.3em}
+
+/* 推演中 */
+.loading{align-items:center;justify-content:center;text-align:center;gap:22px}
+.loading .seal-spin{width:86px;height:86px;border:3px solid var(--zhu);display:grid;place-items:center;
+  font-family:var(--brush);font-size:40px;color:var(--zhu);animation:breathe 1.2s ease-in-out infinite}
+.loading p{font-size:17px;color:var(--ink-2)}
+
+/* ---------- 报告 ---------- */
+.report{background:var(--paper);min-height:100vh}
+.hero{background:var(--cover);color:#F6E8D0;padding:30px 22px 34px;position:relative;overflow:hidden;
+  background-image:radial-gradient(ellipse at 20% 10%,rgba(255,210,160,.12),transparent 60%),
+  repeating-linear-gradient(0deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px)}
+.hero .kicker{font-size:14px;letter-spacing:.2em;color:#E3C49A}
+.hero-body{display:flex;gap:18px;align-items:stretch;margin-top:16px}
+.hero-name{writing-mode:vertical-rl;font-family:var(--brush);font-size:clamp(64px,19vw,96px);line-height:1.05;
+  color:#FFF3DF;letter-spacing:.04em;text-shadow:0 2px 0 rgba(0,0,0,.25);flex-shrink:0}
+.hero-name.long{font-size:clamp(52px,15vw,78px)}
+.hero-info{display:flex;flex-direction:column;gap:12px;min-width:0;padding-top:4px}
+.hero-era{font-size:14px;color:#E3C49A;letter-spacing:.1em}
+.hero-tag{font-size:21px;line-height:1.6;font-weight:600;color:#FFF3DF}
+.hero-meta{font-size:13.5px;color:#E6CFAE;line-height:1.8;margin-top:auto}
+.seal{width:92px;height:92px;background:var(--zhu);color:#FFF1E2;display:flex;flex-direction:row-reverse;
+  align-items:center;justify-content:center;gap:4px;font-family:var(--brush);font-size:32px;line-height:1.05;border-radius:4px;
+  box-shadow:inset 0 0 0 2px #FFF1E2,inset 0 0 0 4px var(--zhu);transform:rotate(-6deg);
+  animation:stamp .55s .35s cubic-bezier(.2,1.6,.5,1) both}
+.seal span{writing-mode:vertical-rl}
+.hero .seal{background:#C9412E;margin:2px 0 4px 4px}
+
+.sec{padding:30px 22px 6px}
+.sec+.sec{border-top:1px dashed #CDBB95}
+.sec h3{font-size:20px;font-weight:700;color:var(--cover);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec h3::before{content:"";width:4px;height:20px;background:var(--zhu)}
+.sec p{margin-bottom:.9em}
+.lead-p{font-size:17.5px;line-height:1.95}
+.muted{color:var(--ink-2);font-size:14px}
+
+.radar-wrap{background:var(--paper-3);border:1px solid #D7C8A6;padding:10px 6px 4px;margin:4px 0 8px}
+.radar-wrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;justify-content:center;gap:22px;font-size:13.5px;color:var(--ink-2);padding:2px 0 10px}
+.legend i{display:inline-block;width:18px;height:0;vertical-align:4px;margin-right:6px;border-top:3px solid var(--zhu)}
+.legend i.p{border-top:2px dashed var(--dai)}
+.dims{list-style:none;margin-top:12px}
+.dims li{display:grid;grid-template-columns:3.2em 1fr 2.4em;gap:4px 10px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(160,130,90,.22)}
+.dims .n{font-weight:700}
+.dims .track{height:6px;background:var(--paper-2);position:relative}
+.dims .track i{position:absolute;left:0;top:0;bottom:0;background:var(--zhu)}
+.dims .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--zhu);font-weight:700}
+.dims .t{grid-column:2 / 4;font-size:14px;color:var(--ink-2);line-height:1.6}
+
+.points{list-style:none;counter-reset:pt}
+.points li{counter-increment:pt;padding-left:46px;position:relative;margin-bottom:22px}
+.points li::before{content:counter(pt,cjk-ideographic);position:absolute;left:0;top:0;width:32px;height:32px;
+  display:grid;place-items:center;background:var(--zhu);color:#FFF1E2;font-family:var(--brush);font-size:20px}
+.points h4{font-size:17.5px;margin-bottom:4px}
+.cbq{display:block;margin-top:6px;padding:10px 14px;background:var(--paper-3);border-left:3px solid var(--gold);font-size:15px;color:var(--ink-2)}
+
+.script{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:var(--paper-3);border:1px solid #D7C8A6;padding:14px 14px 12px}
+.card.wide{grid-column:1 / -1}
+.card .k{font-size:13px;color:var(--ink-3);letter-spacing:.1em}
+.card .big{font-family:var(--brush);font-size:30px;line-height:1.3;color:var(--cover);margin:2px 0 4px}
+.card p{font-size:14.5px;line-height:1.75;margin:0}
+
+.mir{background:#fff;border:1px solid #CBD5D9;border-radius:10px;padding:16px;margin-bottom:12px;font-family:var(--sans)}
+.mir .tag{font-size:13px;font-weight:600;color:var(--dai);letter-spacing:.08em}
+.mir .you{font-size:14px;color:#5D6B72;margin:4px 0 8px}
+.mir p{font-size:15px;line-height:1.8;margin-bottom:.5em}
+.mir .tipline{background:var(--dai-soft);padding:10px 12px;border-radius:6px;margin:0}
+
+.archive{font-size:15.5px}
+.archive .dr{margin-top:10px;font-size:14.5px}
+.share-box{text-align:center;padding:34px 22px 44px;background:var(--cover);color:#F6E8D0;margin-top:26px}
+.share-box .line{font-family:var(--brush);font-size:28px;line-height:1.5;color:#FFF3DF;margin-bottom:22px}
+.share-box .btns{display:flex;flex-direction:column;gap:8px;align-items:stretch;max-width:320px;margin:0 auto}
+.share-box .fine{font-size:12px;color:rgba(241,223,196,.6);margin-top:20px;line-height:1.7;text-align:left}
+
+/* 记录 */
+.hist-list{list-style:none;margin-top:6px}
+.hist-list li{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(160,130,90,.25)}
+.hist-list .mini{width:46px;height:46px;background:var(--zhu);color:#FFF1E2;font-family:var(--brush);font-size:26px;display:grid;place-items:center;flex-shrink:0}
+.hist-list .info{flex:1;min-width:0}
+.hist-list .info b{display:block;font-size:17px}
+.hist-list .info span{font-size:13px;color:var(--ink-3)}
+.hist-list .go{color:var(--zhu);font-weight:600;padding:8px 6px;min-height:44px}
+.hist-list .del{color:var(--ink-3);font-size:13px;padding:8px 4px;min-height:44px}
+.empty{text-align:center;padding:40px 0;color:var(--ink-2)}
+
+/* 分享卡弹层 */
+.overlay{position:fixed;inset:0;background:rgba(30,10,6,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;z-index:10}
+.overlay img{max-width:100%;max-height:72vh;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.overlay p{color:#F1DFC4;font-size:14px}
+.overlay .row{display:flex;gap:10px}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes stamp{0%{opacity:0;transform:rotate(-6deg) scale(2.2)}60%{opacity:1}100%{opacity:1;transform:rotate(-6deg) scale(1)}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.06);opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (min-width:541px){#app{box-shadow:0 0 0 1px rgba(0,0,0,.2),0 20px 60px rgba(0,0,0,.35)}}
